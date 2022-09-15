@@ -11,19 +11,40 @@ import {
 } from "../src/table-names";
 import { tableInfo, indexList } from "../src/queries/table-info";
 
-const CREATE_MOVIES_TABLE = ``;
+const CREATE_MOVIES_TABLE = `Create Table ${MOVIES}(
+  
+)`;
 
-const CREATE_MOVIE_RATINGS_TABLE = ``;
+const CREATE_MOVIE_RATINGS_TABLE = `Create Table ${MOVIE_RATINGS}(
+  user_id integer NOT NULL,
+  movie_id integer NOT NULL,
+  rating real NOT NULL,
+  time_created text NOT NULL,
+  PRIMARY KEY (user_id, movie_id)
+  FOREIGN KEY (movie_id) REFERENCES movies(id)
+  ON DELETE CASCADE
+)`;
 
-const CREATE_ACTORS_TABLE = ``;
+const CREATE_ACTORS_TABLE = `Create Table ${ACTORS}(
+  id integer NOT NULL PRIMARY KEY,
+  full_name text NOT NULL
+)`;
 
-const CREATE_KEYWORDS_TABLE = ``;
+const CREATE_KEYWORDS_TABLE = `Create Table ${KEYWORDS}(
 
-const CREATE_DIRECTORS_TABLE = ``;
+)`;
 
-const CREATE_GENRES_TABLE = ``;
+const CREATE_DIRECTORS_TABLE = `Create Table ${DIRECTORS}(
 
-const CREATE_PRODUCTION_COMPANIES_TABLE = ``;
+)`;
+
+const CREATE_GENRES_TABLE = `Create Table ${GENRES}(
+
+)`;
+
+const CREATE_PRODUCTION_COMPANIES_TABLE = `Create Table ${PRODUCTION_COMPANIES}(
+
+)`;
 
 const CREATE_INDEX_MOVIES_RELEASE_DATE = ``;
 

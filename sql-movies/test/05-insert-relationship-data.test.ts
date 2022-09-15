@@ -32,7 +32,10 @@ const insertMovieGenres = (
   genres: string[],
   genreRows: GenreRow[]
 ): string => {
-  throw new Error(`todo`);
+  const filterGenres = genreRows.filter(genre => genres.indexOf(genre.genre) != -1)
+  return ('insert into ${MOVIE_GENRES} (movie_id, genre_id) values' +
+  filterGenres.map(genre => '(${movieId}, ${genre.id})').join(",")
+  );
 };
 
 const insertMovieActors = (
@@ -79,7 +82,7 @@ describe("Insert Relationship Data", () => {
     "should insert genre relationship data",
     async done => {
       const movies = await CsvLoader.movies();
-      const genreRows = (await db.selectMultipleRows(`todo`)) as GenreRow[];
+      const genreRows = (await db.selectMultipleRows(`select * from genres`)) as GenreRow[];
       const moviesByImdbId = _.groupBy(await CsvLoader.movies(), "imdbId");
 
       for (const imdbId of Object.keys(moviesByImdbId)) {

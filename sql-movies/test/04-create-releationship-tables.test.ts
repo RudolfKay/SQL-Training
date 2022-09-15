@@ -4,21 +4,39 @@ import {
   MOVIE_KEYWORDS,
   MOVIE_ACTORS,
   MOVIE_DIRECTORS,
-  MOVIE_PRODUCTION_COMPANIES
+  MOVIE_PRODUCTION_COMPANIES,
+  MOVIES,
+  GENRES
 } from "../src/table-names";
 import { Database } from "../src/database";
 import { tableInfo } from "../src/queries/table-info";
 import { minutes, Log } from "./utils";
 
-const CREATE_MOVIE_GENRES_TABLE = ``;
+const CREATE_MOVIE_GENRES_TABLE = `CREATE table ${MOVIE_GENRES}(
+  movie_id integer NOT NULL,
+  genre_id integer NOT NULL,
+  PRIMARY KEY(movie_id, genre_id),
+  FOREIGN KEY(movie_id) REFERENCES ${MOVIES}(id)
+  ON DELETE CASCADE,
+  FOREIGN KEY (genre_id) REFERENCES ${GENRES}(id)
+  )`;
 
-const CREATE_MOVIE_ACTORS_TABLE = ``;
+const CREATE_MOVIE_ACTORS_TABLE = `CREATE table ${MOVIE_ACTORS}(
+  movie_id integer NOT NULL,
+  genre_id integer NOT NULL,
+)`;
 
-const CREATE_MOVIE_DIRECTORS_TABLE = ``;
+const CREATE_MOVIE_DIRECTORS_TABLE = `CREATE table ${MOVIE_DIRECTORS}(
+  
+)`;
 
-const CREATE_MOVIE_KEYWORDS_TABLE = ``;
+const CREATE_MOVIE_KEYWORDS_TABLE = `CREATE table ${MOVIE_KEYWORDS}(
+  
+  )`;
 
-const CREATE_MOVIE_PRODUCTION_COMPANIES_TABLE = ``;
+const CREATE_MOVIE_PRODUCTION_COMPANIES_TABLE = `CREATE table ${MOVIE_PRODUCTION_COMPANIES}(
+  
+  )`;
 
 describe("Insert Combined Data", () => {
   let db: Database;
