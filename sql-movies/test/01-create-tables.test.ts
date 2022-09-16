@@ -12,7 +12,19 @@ import {
 import { tableInfo, indexList } from "../src/queries/table-info";
 
 const CREATE_MOVIES_TABLE = `Create Table ${MOVIES}(
-  
+  id integer NOT NULL PRIMARY KEY,
+  imdb_id text NOT NULL,
+  popularity real NOT NULL,
+  budget real NOT NULL,
+  budget_adjusted real NOT NULL,
+  revenue real NOT NULL,
+  revenue_adjusted real NOT NULL,
+  original_title text NOT NULL,
+  homepage text,
+  tagline text,
+  overview text NOT NULL,
+  runtime integer NOT NULL,
+  release_date text NOT NULL
 )`;
 
 const CREATE_MOVIE_RATINGS_TABLE = `Create Table ${MOVIE_RATINGS}(
@@ -31,32 +43,36 @@ const CREATE_ACTORS_TABLE = `Create Table ${ACTORS}(
 )`;
 
 const CREATE_KEYWORDS_TABLE = `Create Table ${KEYWORDS}(
-
+  id integer NOT NULL PRIMARY KEY,
+  keyword text NOT NULL
 )`;
 
 const CREATE_DIRECTORS_TABLE = `Create Table ${DIRECTORS}(
-
+  id integer NOT NULL PRIMARY KEY,
+  full_name text NOT NULL
 )`;
 
 const CREATE_GENRES_TABLE = `Create Table ${GENRES}(
-
+  id integer NOT NULL PRIMARY KEY,
+  genre text NOT NULL
 )`;
 
 const CREATE_PRODUCTION_COMPANIES_TABLE = `Create Table ${PRODUCTION_COMPANIES}(
-
+  id integer NOT NULL PRIMARY KEY,
+  company_name text NOT NULL
 )`;
 
-const CREATE_INDEX_MOVIES_RELEASE_DATE = ``;
+const CREATE_INDEX_MOVIES_RELEASE_DATE = `Create Index movies_release_date_idx ON ${MOVIES}(release_date)`;
 
-const CREATE_INDEX_MOVIE_RATINGS_TIME_CREATED = ``;
+const CREATE_INDEX_MOVIE_RATINGS_TIME_CREATED = `Create Index movie_ratings_time_created_idx ON ${MOVIE_RATINGS}(time_created)`;
 
-const CREATE_UNIQUE_INDEX_MOVIES_IMDB_ID = ``;
+const CREATE_UNIQUE_INDEX_MOVIES_IMDB_ID = `Create Unique Index movies_imdb_id_unq_idx ON ${MOVIES}(imdb_id)`;
 
-const CREATE_UNIQUE_INDEX_KEYWORDS_KEYWORD = ``;
+const CREATE_UNIQUE_INDEX_KEYWORDS_KEYWORD = `Create Unique Index keywords_keyword_unq_idx ON ${KEYWORDS}(keyword)`;
 
-const CREATE_UNIQUE_INDEX_GENRES_GENRE = ``;
+const CREATE_UNIQUE_INDEX_GENRES_GENRE = `Create Unique Index genres_genre_unq_idx ON ${GENRES}(genre)`;
 
-const CREATE_UNIQUE_INDEX_PRODUCTION_COMPANIES_COMPANY_NAME = ``;
+const CREATE_UNIQUE_INDEX_PRODUCTION_COMPANIES_COMPANY_NAME = `Create Unique Index production_companies_company_name_unq_idx ON ${PRODUCTION_COMPANIES}(company_name)`;
 
 describe("Tables", () => {
   let db: Database;
