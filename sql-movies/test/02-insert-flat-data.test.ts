@@ -24,8 +24,6 @@ import { minutes } from "./utils";
 
 const insertActors = (actors: string[]) => {
   return (
-    // insert into actors (full_name) values 
-    // map veido šo: ('actor1'), ('actor2'), ('actor3')
     `insert into actors (full_name) values ` +
     actors.map(actor => `('${escape(actor)}')`).join(",")
   );
