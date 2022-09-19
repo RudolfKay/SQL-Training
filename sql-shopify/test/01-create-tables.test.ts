@@ -11,15 +11,46 @@ import {
 } from "../src/shopify-table-names";
 import { tableInfo, indexList } from "../src/queries/table-info";
 
-const CREATE_APPS_TABLE = `todo`;
+const CREATE_APPS_TABLE = `Create Table ${APPS} (
+    id integer NOT NULL PRIMARY KEY,
+    url text NOT NULL,
+    title text NOT NULL,
+    tagline text NOT NULL,
+    developer text NOT NULL,
+    developer_link text NOT NULL,
+    icon text NOT NULL,
+    rating real NOT NULL,
+    reviews_count integer NOT NULL,
+    description text NOT NULL,
+    pricing_hint text
+)`;
 
-const CREATE_CATEGORIES_TABLE = `todo`;
+const CREATE_CATEGORIES_TABLE = `Create Table ${CATEGORIES} (
+    id integer NOT NULL PRIMARY KEY,
+    title text NOT NULL
+)`;
 
-const CREATE_APPS_CATEGORIES_TABLE = `todo`;
+const CREATE_APPS_CATEGORIES_TABLE = `Create Table ${APPS_CATEGORIES} (
+    app_id integer NOT NULL,
+    category_id integer NOT NULL,
+    PRIMARY KEY (app_id, category_id),
+    FOREIGN KEY (category_id) REFERENCES apps(id)
+    ON DELETE CASCADE
+)`;
 
-const CREATE_KEY_BENEFITS_TABLE = `todo`;
+const CREATE_KEY_BENEFITS_TABLE = `Create Table ${KEY_BENEFITS} (
+    app_id integer NOT NULL,
+    title text NOT NULL,
+    description text NOT NULL,
+    PRIMARY KEY (app_id, title),
+    FOREIGN KEY (title) REFERENCES apps(id)
+    ON DELETE CASCADE
+)`;
 
-const CREATE_PRICING_PLANS_TABLE = `todo`;
+const CREATE_PRICING_PLANS_TABLE = `Create Table ${PRICING_PLANS} (
+    id integer NOT NULL PRIMARY KEY,
+    price text NOT NULL
+)`;
 
 const CREATE_APPS_PRICING_PLANS_TABLE = `todo`;
 
