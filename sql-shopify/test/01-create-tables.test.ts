@@ -52,15 +52,30 @@ const CREATE_PRICING_PLANS_TABLE = `Create Table ${PRICING_PLANS} (
     price text NOT NULL
 )`;
 
-const CREATE_APPS_PRICING_PLANS_TABLE = `todo`;
+const CREATE_APPS_PRICING_PLANS_TABLE = `Create Table ${APPS_PRICING_PLANS} (
+    app_id integer NOT NULL,
+    pricing_plan_id integer NOT NULL,
+    PRIMARY KEY (app_id, pricing_plan_id),
+    FOREIGN KEY (pricing_plan_id) REFERENCES apps(id)
+    ON DELETE CASCADE
+    )`;
 
-const CREATE_REVIEWS_TABLE = `todo`;
+const CREATE_REVIEWS_TABLE = `Create Table ${REVIEWS}(
+    app_id integer NOT NULL,
+    author text NOT NULL,
+    body text NOT NULL,
+    rating integer NOT NULL,
+    helpful_count integer NOT NULL,
+    date_created text NOT NULL,
+    developer_reply text,
+    developer_reply_date text
+    )`;
 
-const CREATE_INDEX_REVIEWS_AUTHOR = `todo`;
+const CREATE_INDEX_REVIEWS_AUTHOR = `Create Index reviews_author_idx ON ${REVIEWS}(author)`;
 
-const CREATE_INDEX_PRICING_PLANS_PRICE = `todo`;
+const CREATE_INDEX_PRICING_PLANS_PRICE = `Create Index pricing_plans_price_idx ON ${PRICING_PLANS}(price)`;
 
-const CREATE_UNIQUE_INDEX_APPS_ID = `todo`;
+const CREATE_UNIQUE_INDEX_APPS_ID = `Create Unique Index apps_id_unq_idx ON ${APPS}(id)`;
 
 describe("Create Tables", () => {
     let db: Database;
