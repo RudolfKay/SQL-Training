@@ -12,7 +12,7 @@ describe("Queries Across Tables", () => {
         const query = `SELECT COUNT(*) as count FROM apps_pricing_plans
             INNER JOIN apps ON apps.id = apps_pricing_plans.app_id
             INNER JOIN pricing_plans ON pricing_plans.id = apps_pricing_plans.pricing_plan_id
-            WHERE pricing_plans.price = 'Free'`;
+            WHERE pricing_plans.price LIKE ('Free%')`;
         const result = await db.selectSingleRow(query);
         expect(result).toEqual({
             count: 1112
