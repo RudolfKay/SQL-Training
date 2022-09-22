@@ -11,25 +11,73 @@ import {
 } from "../src/shopify-table-names";
 import { tableInfo, indexList } from "../src/queries/table-info";
 
-const CREATE_APPS_TABLE = `todo`;
+const CREATE_APPS_TABLE = `Create Table ${APPS} (
+    id integer NOT NULL PRIMARY KEY,
+    url text NOT NULL,
+    title text NOT NULL,
+    tagline text NOT NULL,
+    developer text NOT NULL,
+    developer_link text NOT NULL,
+    icon text NOT NULL,
+    rating real NOT NULL,
+    reviews_count integer NOT NULL,
+    description text NOT NULL,
+    pricing_hint text
+)`;
 
-const CREATE_CATEGORIES_TABLE = `todo`;
+const CREATE_CATEGORIES_TABLE = `Create Table ${CATEGORIES} (
+    id integer NOT NULL PRIMARY KEY,
+    title text NOT NULL
+)`;
 
-const CREATE_APPS_CATEGORIES_TABLE = `todo`;
+const CREATE_APPS_CATEGORIES_TABLE = `Create Table ${APPS_CATEGORIES} (
+    app_id integer NOT NULL,
+    category_id integer NOT NULL,
+    PRIMARY KEY (app_id, category_id),
+    FOREIGN KEY (app_id) REFERENCES apps(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+    ON DELETE CASCADE
+)`;
 
-const CREATE_KEY_BENEFITS_TABLE = `todo`;
+const CREATE_KEY_BENEFITS_TABLE = `Create Table ${KEY_BENEFITS} (
+    app_id integer NOT NULL,
+    title text NOT NULL,
+    description text NOT NULL,
+    PRIMARY KEY (app_id, title)
+    FOREIGN KEY (app_id) REFERENCES apps(id)
+    ON DELETE CASCADE
+)`;
 
-const CREATE_PRICING_PLANS_TABLE = `todo`;
+const CREATE_PRICING_PLANS_TABLE = `Create Table ${PRICING_PLANS} (
+    id integer NOT NULL PRIMARY KEY,
+    price text NOT NULL
+)`;
 
-const CREATE_APPS_PRICING_PLANS_TABLE = `todo`;
+const CREATE_APPS_PRICING_PLANS_TABLE = `Create Table ${APPS_PRICING_PLANS} (
+    app_id integer NOT NULL,
+    pricing_plan_id integer NOT NULL,
+    PRIMARY KEY (app_id, pricing_plan_id),
+    FOREIGN KEY (app_id) REFERENCES apps(id),
+    FOREIGN KEY (pricing_plan_id) REFERENCES pricing_plans(id)
+    ON DELETE CASCADE
+    )`;
 
-const CREATE_REVIEWS_TABLE = `todo`;
+const CREATE_REVIEWS_TABLE = `Create Table ${REVIEWS}(
+    app_id integer NOT NULL,
+    author text NOT NULL,
+    body text NOT NULL,
+    rating integer NOT NULL,
+    helpful_count integer NOT NULL,
+    date_created text NOT NULL,
+    developer_reply text,
+    developer_reply_date text
+    )`;
 
-const CREATE_INDEX_REVIEWS_AUTHOR = `todo`;
+const CREATE_INDEX_REVIEWS_AUTHOR = `Create Index reviews_author_idx ON ${REVIEWS}(author)`;
 
-const CREATE_INDEX_PRICING_PLANS_PRICE = `todo`;
+const CREATE_INDEX_PRICING_PLANS_PRICE = `Create Index pricing_plans_price_idx ON ${PRICING_PLANS}(price)`;
 
-const CREATE_UNIQUE_INDEX_APPS_ID = `todo`;
+const CREATE_UNIQUE_INDEX_APPS_ID = `Create Unique Index apps_id_unq_idx ON ${APPS}(id)`;
 
 describe("Create Tables", () => {
     let db: Database;
